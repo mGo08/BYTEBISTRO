@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Menu</title>
+    <link rel="stylesheet" href="table.css">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -11,9 +12,20 @@
         <div id="nav-placeholder"></div>
         <main class="content">
             <h1>Menu Management</h1>
-            <button id="addBtn">+ Create</button>
-            <button id="editBtn">Edit</button>
-            <button id="delBtn">Delete</button>
+            <hr class="divider">
+
+            <div class="top-bar">
+                <div class="search-container">
+                    <input type="text" id="searchInput" placeholder="Search ID" />
+                    <button id="searchButton">Search</button>
+                </div>
+                <div class="actions-container">
+                    <button id="addBtn">+ Create</button>
+                    <button id="editBtn">Edit</button>
+                    <button id="delBtn">Delete</button>
+                </div>
+            </div>
+            
             <table>
                 <thead>
                     <tr>
@@ -25,7 +37,7 @@
                     </tr>
                 </thead>
                 <tbody id="menuTable">
-                    <!-- Menu items will be added dynamically -->
+                    <!-- Menu items -->
                 </tbody>
             </table>
         </main>

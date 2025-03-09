@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sales</title>
+    <link rel="stylesheet" href="table.css">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -11,6 +12,15 @@
         <div id="nav-placeholder"></div>
         <main class="content">
             <h1>Sales Records</h1>
+            <hr class="divider">
+            
+            <div class="top-bar">
+                <div class="search-container">
+                    <input type="text" id="searchInput" placeholder="Search ID" />
+                    <button id="searchButton">Search</button>
+                </div>
+            </div>
+
             <table>
                 <thead>
                     <tr>
@@ -20,7 +30,7 @@
                     </tr>
                 </thead>
                 <tbody id="salesTable">
-                    <!-- Sales records will be added dynamically -->
+                    <!-- Sales records -->
                 </tbody>
             </table>
         </main>

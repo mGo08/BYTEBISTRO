@@ -1,0 +1,31 @@
+.activity-log {
+    margin-top: 20px;
+}
+
+.activity-log h2 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background: white;
+    border-radius: 5px;
+}
+
+table, th, td {
+    border: 1px solid #ddd;
+}
+
+th, td {
+    padding: 12px;
+    text-align: left;
+    font-weight: 400;
+}
+
+th {
+    border: #c9caca;
+    font-weight: 600;
+}
