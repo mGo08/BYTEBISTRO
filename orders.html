@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Orders</title>
+    <link rel="stylesheet" href="styles.css">
+    <script defer src="script.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div id="nav-placeholder"></div>
+        <main class="content">
+            <h1>Orders</h1>
+            <button id="addBtn">+ Create</button>
+            <button id="editBtn">Edit</button>
+            <button id="delBtn">Delete</button>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Order ID</th>
+                        <th>Menu ID</th>
+                        <th>Table</th>
+                        <th>Ordered Items</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="ordersTable">
+                    <!-- Orders will be added dynamically here -->
+                </tbody>
+            </table>
+        </main>
+    </div>
+    <script src="nav.js"></script>
+</body>
+</html>
