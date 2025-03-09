@@ -13,19 +13,18 @@ table {
     margin-top: 20px;
     background: white;
     border-radius: 5px;
-}
-
-table, th, td {
-    border: 1px solid #ddd;
+    table-layout: fixed; 
 }
 
 th, td {
     padding: 12px;
     text-align: left;
     font-weight: 400;
+    width: auto; 
 }
 
 th {
-    border: #c9caca;
+    border: 1px solid #c9caca;
     font-weight: 600;
+    text-align: center; 
 }
