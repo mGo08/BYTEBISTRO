@@ -35,6 +35,17 @@ create table tbl_manager (
 
 
 
+create table tbl_activity_logs (
+	id int auto_increment primary key,
+	action varchar(255) not null,
+	description varchar(255) not null,
+	timestamp datetime default current_timestamp,
+	manager_id int not null,
+		foreign key (manager_id) references tbl_manager (id)
+);
+
+
+
 
 create table tbl_unit (
 	id int auto_increment primary key,
@@ -45,7 +56,8 @@ create table tbl_unit_convert (
 	unit_id1 int not null,
 		foreign key (unit_id1) references tbl_unit (id),
 	unit_id2 int not null,
-		foreign key (unit_id2) references tbl_unit (id)
+		foreign key (unit_id2) references tbl_unit (id),
+	ratio decimal(10,2) not null
 );
 
 create table tbl_sales (
@@ -81,6 +93,7 @@ create table tbl_menu_item (
 
 create table tbl_inventory_item (
 	id int auto_increment primary key,
+	name varchar(100) not null,
 	quantity int not null,
 	cost decimal(10,2) not null,
 	unit_id int not null,
@@ -150,6 +163,7 @@ create table tbl_event (
 	id int auto_increment primary key,
 	event_name_id int not null,
 		foreign key (event_name_id) references tbl_event_name (id),
+	tickets_sold int not null,
 	ticket_price decimal(10,2) not null,
 	sales_id int not null,
 		foreign key (sales_id) references tbl_sales (id)
