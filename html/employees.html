@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employees</title>
+    <link rel="stylesheet" href="../css/table.css">
+    <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+    <div class="container">
+        <div id="nav-placeholder"></div>
+        <main class="content">
+            <h1>Employee Management</h1>
+            <hr class="divider">
+
+            <div class="top-bar">
+                <div class="search-container">
+                    <input type="text" id="searchInput" placeholder="Search ID" />
+                    <button id="searchButton">Search</button>
+                </div>
+                <div class="actions-container">
+                    <button id="addBtn">+ Add</button>
+                    <button id="editBtn">Edit</button>
+                    <button id="delBtn">Delete</button>
+                </div>
+            </div>
+
+            <table id="employeeTable">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Role</th>
+                        <th>Schedule</th>
+                        <th>Salary</th>
+                        <th>Email</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Menu items -->
+                </tbody>
+            </table>
+        </main>
+    </div>
+    <script src="../js/nav.js"></script>
+    <script src="../js/employees.js"></script>
+</body>
+</html>

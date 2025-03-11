@@ -38,9 +38,9 @@ create table tbl_manager (
 
 create table tbl_activity_logs (
 	id int auto_increment primary key,
+	timestamp datetime default current_timestamp,
 	panel varchar(255) not null,
 	action varchar(255) not null,
-	timestamp datetime default current_timestamp,
 	manager_id int not null,
 		foreign key (manager_id) references tbl_manager (id)
 );
