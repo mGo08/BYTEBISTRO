@@ -16,7 +16,7 @@ create table tbl_employee (
 	last_name varchar(100) not null,
 	salary decimal(10,2) not null,
 	email varchar(50) not null,
-	username varchar(50) not null,
+	username varchar(50) not null unique,
 	password varchar(50) not null,
 	role_id int not null,
 	schedule_id int not null,
