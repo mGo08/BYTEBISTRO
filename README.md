@@ -6,7 +6,7 @@ How to run
 
 <br>
 
-2. Enter "nodemon index.js"
+2. Enter "nodemon index_old.js"
 
 ![image](https://github.com/user-attachments/assets/ad9d1ef4-2972-4c7e-94ae-cb26b943b41c)
 
