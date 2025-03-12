@@ -28,3 +28,7 @@ th {
     font-weight: 600;
     text-align: center; 
 }
+
+tr.selected {
+    background: lightgray;
+}

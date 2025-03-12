@@ -16,9 +16,10 @@ const session = require('express-session');
 const path = require('path');
 
 const app = express();
+app.set("view engine", "ejs");
 
 app.use(express.static(path.join(__dirname, '')));
-app.use(express.static(path.join(__dirname, 'html')));
+// app.use(express.static(path.join(__dirname, 'html')));
 app.use(bodyParser.json());
 app.use(session({
     secret: 'Dj*g2$-490+Gp{eSD3%',
@@ -32,16 +33,16 @@ app.use(session({
 
 app.get('/', (req, res) => {
     if (req.session.user) {
-        res.sendFile(path.join(__dirname, './html/dashboard.html'));
+        res.render("dashboard");
     } else {
-        res.sendFile(path.join(__dirname, './html/login.html'));
+        res.render("login");
     }
 });
 
 app.get('/:page', (req, res) => {
     if (req.session.user) {
         const page = req.params.page;
-        res.sendFile(path.join(__dirname, `./html/${page}.html`));
+        res.render(page);
     } else {
         res.redirect('/');
     }

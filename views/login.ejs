@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="../css/login.css">
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-box">
+            <img src="../assets/rmsLogo.png" alt="RMS Logo" class="logo">
+            <h2>Restaurant Management System</h2>
+
+            <form id="loginForm">
+            <!-- <form id="loginForm" method="post" action="/login"> -->
+                <input type="text" id="username" name="username" placeholder="Username" required>
+                <input type="password" id="password" name="password" placeholder="Password" required>
+                <button type="submit">Login</button>
+            </form>
+
+        </div>
+    </div>
+
+    <script>
+        const loginForm = document.getElementById('loginForm');
+    
+        loginForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+    
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+    
+            const response = await fetch('/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ username, password })
+            });
+            const data = await response.json();
+    
+            if (data.success) {
+                window.location.href = '/dashboard';
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sales</title>
+    <link rel="stylesheet" href="/css/table.css">
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+    <div class="container">
+        <%- include('_nav') %>
+        <main class="content">
+            <h1>Sales Records</h1>
+            <hr class="divider">
+            
+            <div class="top-bar">
+                <div class="search-container">
+                    <input type="text" id="searchInput" placeholder="Search ID" />
+                    <button id="searchButton">Search</button>
+                </div>
+                <div class="actions-container">
+                    <a id="addBtn" class="button" href="/sales/add">+ Add</a>
+                    <a id="editBtn" class="button" href="">Edit</a>
+                    <a id="delBtn" class="button" href="">Delete</a>
+                </div>
+            </div>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Date</th>
+                        <th>Manager</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody id="salesTable">
+                    <!-- Sales records -->
+                    <% data.forEach(d => { %>
+                        <tr>
+                            <td><%= d.id %></td>
+                            <td><%= d.date_recorded %></td>
+                            <td><%= d.manager %></td>
+                        </tr>
+                    <% }); %>
+                </tbody>
+            </table>
+        </main>
+    </div>
+
+    <script src="/js/tablerowclick.js"></script>
+    <script src="/js/sales.js"></script>
+</body>
+</html>

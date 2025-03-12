@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employees</title>
+    <link rel="stylesheet" href="../css/table.css">
+    <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+    <div class="container">
+        <%- include('_nav') %>
+        <main class="content">
+            <h1>Employee Management</h1>
+            <hr class="divider">
+
+            <div class="top-bar">
+                <div class="search-container">
+                    <input type="text" id="searchInput" placeholder="Search ID" />
+                    <button id="searchButton">Search</button>
+                </div>
+                <div class="actions-container">
+                    <a id="addBtn" class="button" href="/employees/add">+ Add</a>
+                    <a id="editBtn" class="button" href="">Edit</a>
+                    <a id="delBtn" class="button" href="">Delete</a>
+                    <!-- <button id="addBtn">+ Add</button> -->
+                    <!-- <button id="editBtn">Edit</button> -->
+                    <!-- <button id="delBtn">Delete</button> -->
+                </div>
+            </div>
+
+            <table id="employeeTable">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Role</th>
+                        <th>Schedule</th>
+                        <th>Salary</th>
+                        <th>Email</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% data.forEach(d => { %>
+                        <tr>
+                            <td><%= d.id %></td>
+                            <td><%= d.name %></td>
+                            <td><%= d.role %></td>
+                            <td><%= d.schedule %></td>
+                            <td><%= d.salary %></td>
+                            <td><%= d.email %></td>
+                        </tr>
+                    <% }); %>
+                </tbody>
+            </table>
+        </main>
+    </div>
+
+    <script src="/js/tablerowclick.js"></script>
+    <script src="/js/employees.js"></script>
+</body>
+</html>

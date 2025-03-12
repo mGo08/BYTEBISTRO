@@ -1,12 +1,15 @@
+create database db_bar;
+use db_bar;
+
 create table tbl_employee_schedule (
 	id int auto_increment,
-	name varchar(50) not null,
+	name varchar(50) not null unique,
 	primary key (id)
 );
 
 create table tbl_employee_role (
 	id int auto_increment,
-	name varchar(50) not null,
+	name varchar(50) not null unique,
 	primary key (id)
 );
 
@@ -63,7 +66,7 @@ create table tbl_unit_convert (
 
 create table tbl_sales (
 	id int auto_increment,
-	date_recorded datetime not null,
+	date_recorded datetime not null default current_timestamp,
 	manager_id int not null,
 	primary key (id),
 	foreign key (manager_id) references tbl_manager (id)

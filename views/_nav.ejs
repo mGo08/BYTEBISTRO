@@ -1,0 +1,18 @@
+<link rel="stylesheet" href="/css/nav.css">  <!-- Add this line -->
+
+<aside class="sidebar">
+    <div class="logo-container">
+        <img src="/assets/rmsLogo.png" alt="RMS Logo" class="logo">
+        <h2>Restaurant Management System</h2>
+    </div>
+    <nav>
+        <ul>
+            <li><a href="/dashboard" <%= currentPage === 'dashboard' ? 'class=active' : '' %>><img src="/assets/dashboardIcon.png" alt="Dashboard Icon" class="nav-icon"> Dashboard</a></li>
+            <li><a href="/employees" <%= currentPage === 'employees' ? 'class=active' : '' %>><img src="/assets/salesIcon.png" alt="Employees Icon" class="nav-icon"> Employees</a></li>
+            <li><a href="/sales" <%= currentPage === 'sales' ? 'class=active' : '' %>><img src="/assets/salesIcon.png" alt="Sales Icon" class="nav-icon"> Sales</a></li>
+            <!-- <li><a href="orders" <%= currentPage === 'orders' ? 'class=active' : '' %>><img src="/assets/ordersIcon.png" alt="Orders Icon" class="nav-icon"> Orders</a></li> -->
+            <!-- <li><a href="menu" <%= currentPage === 'menu' ? 'class=active' : '' %>><img src="/assets/menuIcon.png" alt="Menu Icon" class="nav-icon"> Menu</a></li> -->
+            <!-- <li><a href="inventory" <%= currentPage === 'inventory' ? 'class=active' : '' %>><img src="/assets/salesIcon.png" alt="Inventory Icon" class="nav-icon"> Inventory</a></li> -->
+        </ul>
+    </nav>
+</aside>

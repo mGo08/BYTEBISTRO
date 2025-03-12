@@ -1,0 +1,1 @@
+handleTableRowClick('table', 'editBtn', 'delBtn', '/sales');

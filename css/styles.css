@@ -42,6 +42,18 @@ button {
     border-radius: 5px;
 }
 
+/* Anchor tag that looks like a button */
+a.button {
+    padding: 10px 15px;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-weight: 500;
+    border-radius: 5px;
+
+    text-decoration: none;
+}
+
 #addBtn {
     background: #2D68FE;
 }
