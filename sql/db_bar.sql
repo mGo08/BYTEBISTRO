@@ -1,3 +1,4 @@
+drop database db_bar;
 create database db_bar;
 use db_bar;
 
