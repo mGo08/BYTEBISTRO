@@ -50,8 +50,12 @@ a.button {
     cursor: pointer;
     font-weight: 500;
     border-radius: 5px;
-
     text-decoration: none;
+    transition: background 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
 }
 
 #addBtn {
@@ -93,19 +97,24 @@ a.button {
 }
 
 .search-container input {
-    padding: 8px 12px;
+    padding: 10px 15px;
     border: 1px solid #ccc;
     border-radius: 5px;
 }
 
 .search-container button {
-    padding: 8px 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     background: #2D68FE;
     color: white;
     border: none;
     cursor: pointer;
     border-radius: 5px;
-    font-weight: 500;
+    text-decoration: none;
+    transition: background 0.3s;
+    width: 40px;
+    height: 38px;
 }
 
 .search-container button:hover {

@@ -1,0 +1,118 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+body {
+    font-family: 'Inter', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f8f9fa;
+    overflow: hidden; 
+    }
+
+.container {
+    display: flex;
+}
+
+/* Main Content */
+.content {
+    flex: 1;
+    padding: 30px;
+    background: #ffffff;
+    border-radius: 10px;
+    margin: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    max-height: 89vh;
+}
+
+h1 {
+    font-size: 24px;
+    color: #333;
+    font-weight: bold;
+    letter-spacing: -0.5px;
+}
+
+.divider {
+    border: none;
+    height: 2px;
+    background: #ddd;
+    margin: 15px 0;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+
+    margin: 0 auto;
+}
+
+.form-row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 40px;
+    margin-bottom: 20px;
+}
+
+.form-group {
+    flex: 1;
+    min-width: 45%;
+}
+
+label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 10px;
+}
+
+/* input area */
+input, select, textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+    box-sizing: border-box; 
+    margin-bottom: 10px;
+}
+
+textarea {
+    resize: vertical; 
+    max-width: 100%; 
+    min-height: 100px; 
+    max-height: 200px; 
+    overflow-y: auto;
+}
+
+/* action buttons */
+button {
+    color: white;
+    padding: 12px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+#addbtn {
+    background: #2D68FE;
+}
+
+#addbtn:hover {
+    background: #1e4fd9;
+}
+
+#editbtn {
+    background: #1abc6b;
+}
+
+#editbtn:hover {
+    background: #17a05d;
+}
+
+#deletebtn {
+    background: #e74c3c;
+}
+
+#deletebtn:hover {
+    background: #d63a2f;
+}

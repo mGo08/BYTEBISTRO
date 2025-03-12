@@ -4,8 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Employees</title>
-    <link rel="stylesheet" href="/css/table.css">
-    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="/css/action.css">
 </head>
 <body>
     <div class="container">
@@ -15,56 +14,68 @@
             <hr class="divider">
 
             <form id="addEmployeeForm" method="post" action="/employees/add"> 
-                <div>
-                    <label for="firstName">First Name:</label>
-                    <input type="text" id="firstName" name="first_name" required>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="firstName">First Name:</label>
+                        <input type="text" id="firstName" name="first_name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="lastName">Last Name:</label>
+                        <input type="text" id="lastName" name="last_name" required>
+                    </div>
                 </div>
-                <div>
-                    <label for="lastName">Last Name:</label>
-                    <input type="text" id="lastName" name="last_name" required>
+            
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="salary">Salary:</label>
+                        <input type="number" id="salary" name="salary" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email:</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
                 </div>
-                <div>
-                    <label for="salary">Salary:</label>
-                    <input type="number" id="salary" name="salary" required>
+            
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="username">Username:</label>
+                        <input type="text" id="username" name="username" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password:</label>
+                        <input type="password" id="password" name="password" required>
+                    </div>
                 </div>
-                <div>
-                    <label for="email">Email:</label>
-                    <input type="email" id="email" name="email" required>
+            
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="role">Role:</label>
+                        <select id="role" name="role_id" required>
+                            <option value="">Select Role</option>
+                            <% data.roles.forEach(r => { %>
+                                <option value="<%= r.id %>"><%= r.name %></option>
+                            <% }); %>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="schedule">Schedule:</label>
+                        <select id="schedule" name="schedule_id" required>
+                            <option value="">Select Schedule</option>
+                            <% data.schedules.forEach(s => { %>
+                                <option value="<%= s.id %>"><%= s.name %></option>
+                            <% }); %>
+                        </select>
+                    </div>
                 </div>
-                <div>
-                    <label for="username">Username:</label>
-                    <input type="text" id="username" name="username" required>
-                </div>
-                <div>
-                    <label for="password">Password:</label>
-                    <input type="password" id="password" name="password" required>
-                </div>
-                <div>
-                    <label for="role">Role:</label>
-                    <select id="role" name="role_id" required>
-                        <option value="">Select Role</option>
-                        <% data.roles.forEach(r => { %>
-                            <option value=<%= r.id %>><%= r.name %></option>
-                        <% }); %>
-                    </select>
-                </div>
-                <div>
-                    <label for="schedule">Schedule:</label>
-                    <select id="schedule" name="schedule_id" required>
-                        <option value="">Select Schedule</option>
-                        <% data.schedules.forEach(s => { %>
-                            <option value=<%= s.id %>><%= s.name %></option>
-                        <% }); %>
-                    </select>
-                </div>
-
+            
                 <hr class="divider">
-
-                <div>
+            
+                <div class="form-group">
                     <label for="action">Action:</label>
-                    <textarea id="action" name="action" rows="4" cols="50" placeholder="Short description of the changes you've made..." required></textarea>
+                    <textarea id="action" name="action" rows="4" cols="50" placeholder="Description..." required></textarea>
                 </div>
-                <button type="submit">Add Employee</button>
+                
+                <button id="addbtn" type="submit">Add Employee</button>
             </form>
         </main>
     </div>

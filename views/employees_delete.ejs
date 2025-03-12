@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Employees</title>
     <link rel="stylesheet" href="/css/table.css">
-    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="/css/action.css">
 </head>
 <body>
     <div class="container">
@@ -38,13 +38,15 @@
                     <% }); %>
                 </tbody>
             </table>
+            
+            <hr class="divider">
 
             <form id="deleteEmployeeForm" method="post" action="/employees/delete/<%= id %>"> 
                 <div>
                     <label for="action">Action:</label>
-                    <textarea id="action" name="action" rows="4" cols="50" placeholder="Short description of the changes you've made..." required></textarea>
+                    <textarea id="action" name="action" rows="4" cols="50" placeholder="Description..." required></textarea>
                 </div>
-                <button type="submit">Delete Employee</button>
+                <button id="deletebtn" type="submit">Delete Employee</button>
             </form>
         </main>
     </div>
