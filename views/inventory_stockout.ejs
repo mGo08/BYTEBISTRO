@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inventory</title>
+    <link rel="stylesheet" href="/css/table.css">
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+    <div class="container">
+        <%- include('_nav') %>
+        <main class="content">
+            <h1>Stockouts</h1>
+            <hr class="divider">
+
+            <table id="invTable">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Date</th>
+                        <th>Item</th>
+                        <th>Remarks</th>
+                        <th>Manager</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% data.forEach(d => { %>
+                        <tr>
+                            <td><%= d.id %></td>
+                            <td><%= d.date %></td>
+                            <td><%= d.item %></td>
+                            <td><%= d.remarks %></td>
+                            <td><%= d.manager %></td>
+                        </tr>
+                    <% }); %>
+                </tbody>
+            </table>
+        </main>
+    </div>
+</body>
+</html>

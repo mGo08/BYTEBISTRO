@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Supply</title>
+    <link rel="stylesheet" href="/css/action.css">
+</head>
+<body>
+    <div class="container">
+        <%- include('_nav') %>
+        <main class="content">
+            <h1>Add Supply</h1>
+            <hr class="divider">
+
+            <form id="addSupplyForm">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="supplier_name">Supplier Name:</label>
+                        <input type="text" id="supplier_name" name="supplier_name" required>
+                    </div>
+                </div>
+
+                <hr class="divider">
+
+                <div class="item-group">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="inventory_item_id">Item:</label>
+                            <select id="inventory_item_id" name="inventory_item_id" required>
+                                <option value="">Select Item</option>
+                                <% data.forEach(d => { %>
+                                    <option value="<%= d.id %>"><%= d.name %></option>
+                                <% }); %>
+                            </select>
+                        </div>
+                    </div>
+                
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="quantity">Quantity:</label>
+                            <input type="number" id="quantity" name="quantity" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="cost0">Cost:</label>
+                            <input type="number" id="cost" name="cost" required>
+                        </div>
+                    </div>
+
+                    <hr class="divider">
+                </div>
+
+                <div id="itemGroupsContainer"></div>
+                <button id="addItemBtn" type="button">Add Supply Item</button>
+
+                <hr class="divider">
+            
+                <div class="form-group">
+                    <label for="action">Action:</label>
+                    <textarea id="action" name="action" rows="4" cols="50" placeholder="Description..." required></textarea>
+                </div>
+                
+                <button id="addbtn" type="submit">Add Supply</button>
+            </form>
+        </main>
+    </div>
+
+    <script src="/js/supply_add.js"></script>
+</body>
+</html>

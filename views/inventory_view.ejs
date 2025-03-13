@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inventory</title>
+    <link rel="stylesheet" href="/css/table.css">
+    <link rel="stylesheet" href="/css/action.css">
+</head>
+<body>
+    <div class="container">
+        <%- include('_nav') %>
+        <main class="content">
+            <h1>View Inventory</h1>
+            <hr class="divider">
+
+            <table id="supplyTable">
+                <thead>
+                    <tr>
+                        <th>Supply ID</th>
+                        <th>Supplier</th>
+                        <th>Name</th>
+                        <th>Unit</th>
+                        <th>Quantity</th>
+                        <th>Cost</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% data.forEach(d => { %>
+                        <tr>
+                            <td><%= d.id %></td>
+                            <td><%= d.supplier %></td>
+                            <td><%= d.name %></td>
+                            <td><%= d.unit %></td>
+                            <td><%= d.quantity %></td>
+                            <td><%= d.cost %></td>
+                        </tr>
+                    <% }); %>
+                </tbody>
+            </table>
+        </main>
+    </div>
+</body>
+</html>

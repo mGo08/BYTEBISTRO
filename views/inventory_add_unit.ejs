@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employees</title>
+    <link rel="stylesheet" href="/css/table.css">
+    <link rel="stylesheet" href="/css/action.css">
+</head>
+<body>
+    <div class="container">
+        <%- include('_nav') %>
+        <main class="content">
+            <h1>Add Unit</h1>
+            <hr class="divider">
+
+            <table id="unitTable">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% units.forEach(d => { %>
+                        <tr>
+                            <td><%= d.id %></td>
+                            <td><%= d.name %></td>
+                        </tr>
+                    <% }); %>
+                </tbody>
+            </table>
+
+            <hr class="divider">
+
+            <form id="addInventoryForm" method="post" action="/inventory/add/unit"> 
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="name">Name:</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                </div>
+            
+                <hr class="divider">
+            
+                <div class="form-group">
+                    <label for="action">Action:</label>
+                    <textarea id="action" name="action" rows="4" cols="50" placeholder="Description..." required></textarea>
+                </div>
+                
+                <button id="addbtn" type="submit">Add Unit</button>
+            </form>
+        </main>
+    </div>
+</body>
+</html>

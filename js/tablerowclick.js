@@ -1,14 +1,19 @@
-function handleTableRowClick(tableSelector, editButtonId, deleteButtonId, baseUrl) {
+function handleTableRowClick(tableSelector, links) {
     const table = document.querySelector(tableSelector);
-    const editButton = document.getElementById(editButtonId);
-    const deleteButton = document.getElementById(deleteButtonId);
 
     let selectedId = null;
 
     table.addEventListener('click', (event) => {
         const row = event.target.closest('tr');
 
-        if (row && event.target.tagName !== "TH") {
+        if (row && row.classList.contains('selected')) {
+            row.classList.remove('selected');
+            links.forEach(e => {
+                const btn = document.getElementById(e.id);
+                btn.href = `${e.href}`;
+            });
+        } 
+        else if (event.target.tagName !== "TH") {
             // Remove 'selected' class from any previously selected row
             const selectedRow = document.querySelector('tr.selected');
             if (selectedRow) {
@@ -21,8 +26,10 @@ function handleTableRowClick(tableSelector, editButtonId, deleteButtonId, baseUr
             // Get the employee ID from the data attribute
             selectedId = row.cells[0].textContent;
 
-            editButton.href = `${baseUrl}/edit/${selectedId}`;
-            deleteButton.href = `${baseUrl}/delete/${selectedId}`;
+            links.forEach(e => {
+                const btn = document.getElementById(e.id);
+                btn.href = `${e.href}/${selectedId}`;
+            });
         }
     });
 }

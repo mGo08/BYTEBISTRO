@@ -3,29 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Employees</title>
-    <link rel="stylesheet" href="../css/table.css">
-    <link rel="stylesheet" href="../css/styles.css">
+    <title>Supply</title>
+    <link rel="stylesheet" href="/css/table.css">
+    <link rel="stylesheet" href="/css/styles.css">
 </head>
 <body>
     <div class="container">
         <%- include('_nav') %>
         <main class="content">
-            <h1>Employee Management</h1>
+            <h1>Supply Management</h1>
             <hr class="divider">
 
             <div class="top-bar">
                 <!-- <div class="search-container">
                     <input type="text" id="searchInput" placeholder="Search ID" />
-                    <button id="searchButton">
-                        <img src="/assets/searchIcon.png" alt="Search" width="24" height="24" class="search-icon">
-                    </button>
+                    <button id="searchButton">Search</button>
                 </div> -->
-                
-                
                 <div class="actions-container">
-                    <a id="addBtn" class="button" href="/employees/add">
+                    <a id="addBtn" class="button" href="/supply/add">
                         <img src="/assets/addIcon.png" alt="Add" width="16" height="16"> Add
+                    </a>
+                    <a id="viewBtn" class="button" href="">
+                        <img src="/assets/deleteIcon.png" alt="View" width="16" height="16"> View
                     </a>
                     <a id="editBtn" class="button" href="">
                         <img src="/assets/editIcon.png" alt="Edit" width="16" height="16"> Edit
@@ -33,32 +32,25 @@
                     <a id="delBtn" class="button" href="">
                         <img src="/assets/deleteIcon.png" alt="Delete" width="16" height="16"> Delete
                     </a>
-                    <!-- <button id="addBtn">+ Add</button> -->
-                    <!-- <button id="editBtn">Edit</button> -->
-                    <!-- <button id="delBtn">Delete</button> -->
                 </div>
             </div>
 
-            <table id="employeeTable">
+            <table id="supplyTable">
                 <thead>
                     <tr>
                         <th>ID</th>
-                        <th>Name</th>
-                        <th>Role</th>
-                        <th>Schedule</th>
-                        <th>Salary</th>
-                        <th>Email</th>
+                        <th>Date</th>
+                        <th>Supplier Name</th>
+                        <th>Manager</th>
                     </tr>
                 </thead>
                 <tbody>
                     <% data.forEach(d => { %>
                         <tr>
                             <td><%= d.id %></td>
-                            <td><%= d.name %></td>
-                            <td><%= d.role %></td>
-                            <td><%= d.schedule %></td>
-                            <td><%= d.salary %></td>
-                            <td><%= d.email %></td>
+                            <td><%= d.date %></td>
+                            <td><%= d.supplier_name %></td>
+                            <td><%= d.manager %></td>
                         </tr>
                     <% }); %>
                 </tbody>
@@ -67,6 +59,6 @@
     </div>
 
     <script src="/js/tablerowclick.js"></script>
-    <script src="/js/employees.js"></script>
+    <script src="/js/supply.js"></script>
 </body>
 </html>

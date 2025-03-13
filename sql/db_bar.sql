@@ -99,7 +99,7 @@ create table tbl_menu_item (
 create table tbl_inventory_item (
 	id int auto_increment primary key,
 	name varchar(100) not null,
-	quantity int not null,
+	quantity int not null default 0,
 	cost decimal(10,2) not null,
 	unit_id int not null,
 		foreign key (unit_id) references tbl_unit (id)
@@ -127,21 +127,17 @@ create table tbl_order_item (
 
 create table tbl_stockout (
 	id int auto_increment primary key,
-	date_recorded datetime not null,
+	date_recorded datetime not null default current_timestamp,
 	inventory_item_id int not null,
 		foreign key (inventory_item_id) references tbl_inventory_item (id),
+	remarks varchar(255) not null,
 	manager_id int not null,
-		foreign key (manager_id) references tbl_manager (id),
-	quantity int not null,
-	cost decimal(10,2) not null,
-	unit_id int not null,
-		foreign key (unit_id) references tbl_unit (id),
-	remarks varchar(255) not null
+		foreign key (manager_id) references tbl_manager (id)
 );
 
 create table tbl_order_supply (
 	id int auto_increment primary key,
-	date_recorded datetime not null,
+	date_recorded datetime not null default current_timestamp,
 	manager_id int not null,
 		foreign key (manager_id) references tbl_manager (id),
 	supplier_name varchar(100) not null

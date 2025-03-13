@@ -9,7 +9,7 @@
 </head>
 <body>
     <div class="container">
-        <div id="nav-placeholder"></div>
+        <%- include('_nav') %>
         <main class="content">
             <h1>Orders</h1>
 
@@ -29,9 +29,9 @@
             <table>
                 <thead>
                     <tr>
+                        <th>Sales ID</th>
                         <th>Order ID</th>
-                        <th>Menu ID</th>
-                        <th>Table</th>
+                        <th>Employee</th>
                         <th>Ordered Items</th>
                         <th>Total</th>
                     </tr>
@@ -42,6 +42,5 @@
             </table>
         </main>
     </div>
-    <script src="../js/nav.js"></script>
 </body>
 </html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inventory</title>
+    <link rel="stylesheet" href="/css/action.css">
+</head>
+<body>
+    <div class="container">
+        <%- include('_nav') %>
+        <main class="content">
+            <h1>Add Inventory Item</h1>
+            <hr class="divider">
+
+            <form id="addInventoryForm" method="post" action="/inventory/add"> 
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="name">Name:</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="unit">Unit:</label>
+                        <select id="unit" name="unit_id" required>
+                            <option value="">Select Unit</option>
+                            <% units.forEach(u => { %>
+                                <option value="<%= u.id %>"><%= u.name %></option>
+                            <% }); %>
+                        </select>
+                        <a href="/inventory/add/unit">New Unit</a>
+                    </div>
+                </div>
+            
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="cost">Cost:</label>
+                        <input type="number" id="cost" name="cost" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="quantity">Quantity:</label>
+                        <input type="number" id="quantity" name="quantity" required>
+                    </div>
+                </div>
+            
+                <hr class="divider">
+            
+                <div class="form-group">
+                    <label for="action">Action:</label>
+                    <textarea id="action" name="action" rows="4" cols="50" placeholder="Description..." required></textarea>
+                </div>
+                
+                <button id="addbtn" type="submit">Add Inventory Item</button>
+            </form>
+        </main>
+    </div>
+</body>
+</html>

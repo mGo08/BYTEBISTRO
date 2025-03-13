@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Inventory</title>
-    <link rel="stylesheet" href="../css/table.css">
-    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="/css/table.css">
+    <link rel="stylesheet" href="/css/styles.css">
 </head>
 <body>
     <div class="container">
@@ -15,14 +15,23 @@
             <hr class="divider">
 
             <div class="top-bar">
-                <div class="search-container">
+                <!-- <div class="search-container">
                     <input type="text" id="searchInput" placeholder="Search ID" />
                     <button id="searchButton">Search</button>
-                </div>
+                </div> -->
                 <div class="actions-container">
-                    <button id="addBtn">+ Add</button>
-                    <button id="editBtn">Edit</button>
-                    <button id="delBtn">Delete</button>
+                    <a id="addBtn" class="button" href="/inventory/add">
+                        <img src="/assets/addIcon.png" alt="Add" width="16" height="16"> Add
+                    </a>
+                    <a id="viewBtn" class="button" href="">
+                        <img src="/assets/deleteIcon.png" alt="View" width="16" height="16"> View
+                    </a>
+                    <a id="editBtn" class="button" href="">
+                        <img src="/assets/editIcon.png" alt="Edit" width="16" height="16"> Edit
+                    </a>
+                    <a id="stockoutBtn" class="button" href="">
+                        <img src="/assets/deleteIcon.png" alt="Stockout" width="16" height="16"> Stockout
+                    </a>
                 </div>
             </div>
 
@@ -48,5 +57,8 @@
             </table>
         </main>
     </div>
+
+    <script src="/js/tablerowclick.js"></script>
+    <script src="/js/inventory.js"></script>
 </body>
 </html>
