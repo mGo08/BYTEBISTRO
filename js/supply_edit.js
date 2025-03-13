@@ -1,44 +1,39 @@
-const form = document.getElementById("editMenuForm");
+const form = document.getElementById("addSupplyForm");
 form.addEventListener('submit', async (e) => {
     const itemGroupsContainer = document.getElementById("itemGroupsContainer");
     const i = itemGroupsContainer.childElementCount;
     e.preventDefault();
 
-    const name = document.getElementById("name").value;
-    const category_id = document.getElementById("category_id").value;
-    const price = document.getElementById("price").value;
-    const items=[
+    const supplier_name = document.getElementById("supplier_name").value;
+    const supplyItems=[
         {
             inventory_item_id: document.getElementById(`inventory_item_id`).value,
             quantity: document.getElementById(`quantity`).value,
-            unit_id: document.getElementById('unit_id').value,
             cost: document.getElementById(`cost`).value
         }
     ];
     for (let x=0; x<i; x++) {
         const inventory_item_id = document.getElementById(`inventory_item_id${x}`).value;
         const quantity = document.getElementById(`quantity${x}`).value;
-        const unit_id = document.getElementById(`unit_id${x}`).value;
         const cost = document.getElementById(`cost${x}`).value;
 
-        items.push({
+        supplyItems.push({
             inventory_item_id: inventory_item_id,
             quantity: quantity,
-            unit_id: unit_id,
             cost: cost
         });
     }
 
-    const menu = { name: name, category_id: category_id, price: price };
+    const supply = { supplier_name: supplier_name };
     const action = document.getElementById("action").value;
 
-    const id = document.getElementById("menu_item_id").textContent;
-    const response = await fetch(`/menu/edit/${id}`, {
+    const id = document.getElementById("order_supply_id").textContent;
+    const response = await fetch(`/supply/edit/${id}`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ menu, action, items })
+        body: JSON.stringify({ supply, action, supplyItems })
     });
-    window.location.href = "/menu";
+    window.location.href = "/supply";
 });

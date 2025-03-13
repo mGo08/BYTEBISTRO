@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Supply</title>
+    <link rel="stylesheet" href="/css/action.css">
+</head>
+<body>
+    <div class="container">
+        <%- include('_nav') %>
+        <main class="content">
+            <h1>Edit Supply</h1>
+            <hr class="divider">
+
+            <form id="addSupplyForm">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="supplier_name">Supplier Name:</label>
+                        <input type="text" id="supplier_name" name="supplier_name" value="<%= supply.supplier_name %>" required>
+                    </div>
+                </div>
+
+                <hr class="divider">
+
+                <div class="item-group">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="inventory_item_id">Item:</label>
+                            <select id="inventory_item_id" name="inventory_item_id" required disabled>
+                                <option value="">Select Item</option>
+                                <% inventory.forEach(d => { %>
+                                    <option value="<%= d.id %>" <%= d.id === supplyItems[0].inventory_item_id ? 'selected' : '' %>><%= d.name %></option>
+                                <% }); %>
+                            </select>
+                        </div>
+                    </div>
+                
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="quantity">Quantity:</label>
+                            <input type="number" id="quantity" name="quantity" value="<%= supplyItems[0].quantity %>" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="cost">Cost:</label>
+                            <input type="number" id="cost" name="cost" value="<%= supplyItems[0].cost %>" required>
+                        </div>
+                    </div>
+
+                    <hr class="divider">
+                </div>
+
+                <div id="itemGroupsContainer">
+                    <% for (let i=0; i<supplyItems.length-1; i++) { %>
+                        <div class="item-group">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="inventory_item_id<%=i%>">Item:</label>
+                                    <select id="inventory_item_id<%=i%>" name="inventory_item_id<%=i%>" required disabled>
+                                        <option value="">Select Item</option>
+                                        <% inventory.forEach(d => { %>
+                                            <option value="<%= d.id %>" <%= d.id === supplyItems[i+1].inventory_item_id ? 'selected' : '' %>><%= d.name %></option>
+                                        <% }); %>
+                                    </select>
+                                </div>
+                            </div>
+                        
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="quantity<%=i%>">Quantity:</label>
+                                    <input type="number" id="quantity<%=i%>" name="quantity<%=i%>" value="<%= supplyItems[i+1].quantity %>" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="cost<%=i%>">Cost:</label>
+                                    <input type="number" id="cost<%=i%>" name="cost<%=i%>" value="<%= supplyItems[i+1].cost %>" required>
+                                </div>
+                            </div>
+        
+                            <hr class="divider">
+                        </div>
+                        <% } %>
+                </div>
+                <!-- <button id="addItemBtn" type="button">Add Supply Item</button>
+
+                <hr class="divider"> -->
+            
+                <div class="form-group">
+                    <label for="action">Action:</label>
+                    <textarea id="action" name="action" rows="4" cols="50" placeholder="Description..." required></textarea>
+                </div>
+                
+                <button id="addbtn" type="submit">Edit Supply</button>
+            </form>
+        </main>
+    </div>
+
+    <div id="order_supply_id" hidden><%= id %></div>
+
+    <!-- <script src="/js/cloneitemgroup.js"></script> -->
+    <script src="/js/supply_edit.js"></script>
+</body>
+</html>

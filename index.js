@@ -291,7 +291,7 @@ app.get('/menu/add', async (req, res) =>  {
     
     try {
         const categories = await menuService.getCategories();
-        const ingredients = await inventoryService.getAll();
+        const ingredients = await inventoryService.getAllInventoryItem();
         const units = await unitService.getAll();
         res.render('menu_add', { categories: categories, units: units, ingredients: ingredients, currentPage: 'menu' });
     } catch (error) {
@@ -341,7 +341,7 @@ app.get('/menu/edit/:id', async (req, res) =>  {
     
     try {
         const categories = await menuService.getCategories();
-        const ingredients = await inventoryService.getAll();
+        const ingredients = await inventoryService.getAllInventoryItem();
         const units = await unitService.getAll()
         const menu = (await menuService.get(req.params.id))[0];
         const items = await menuService.get2(req.params.id);
@@ -366,11 +366,11 @@ app.post('/menu/edit/:id', async (req, res) =>  {
     
     try {
         const data = req.body;
-        // console.log(data.menu);
+        console.log(data);
         const result = await menuService.editMenuItem(req.params.id, data.menu);
 
         data.items.forEach(async (i) => {
-            console.log(i);
+            // console.log(i);
             const _ = await menuService.editMenuItemIngredients(req.params.id, i);
         });
 
@@ -439,13 +439,29 @@ app.post('/menu/add/category', async (req, res) =>  {
     }
 });
 
+app.get('/menu/delete/:id', async (req, res) =>  {
+    if (!req.session.user) {
+        return res.redirect('/');
+    }
+    
+    try {
+        const result = await menuService.deleteMenu(req.params.id);
+        const activity = { panel: 'Delete Menu Item', action: `Deleted id ${req.params.id}`, manager_id: req.session.user.manager_id };
+        const result2 = await activityLogService.add(activity);
+        res.redirect('/menu');
+    } catch (error) {
+        console.error('Error getting menu/delete:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
 app.get('/inventory', async (req, res) =>  {
     if (!req.session.user) {
         return res.redirect('/');
     }
     
     try {
-        const data = await inventoryService.getAll();
+        const data = await inventoryService.getAllInventoryItem();
         res.render('inventory', { data: data, currentPage: 'inventory' });
     } catch (error) {
         console.error('Error getting inventory:', error);
@@ -473,7 +489,7 @@ app.post('/inventory/add', async (req, res) =>  {
     }
     
     try {
-        const result = await inventoryService.addItem(req.body);
+        const result = await inventoryService.addInventoryItem(req.body);
 
         const activity = { panel: 'Add Inventory', action: req.body.action, manager_id: req.session.user.manager_id };
         const result2 = await activityLogService.add(activity);
@@ -531,7 +547,7 @@ app.get('/inventory/edit/:id', async (req, res) => {
     
     try {
         const units = await unitService.getAll();
-        const data = (await inventoryService.get(req.params.id))[0];
+        const data = (await inventoryService.getInventoryItem(req.params.id))[0];
         res.render('inventory_edit', { id: req.params.id, units: units, data: data, currentPage: 'inventory' });
     } catch (error) {
         console.error('Error getting inventory/edit:', error);
@@ -545,7 +561,7 @@ app.post('/inventory/edit/:id', async (req, res) => {
     }
     
     try {
-        const result = await inventoryService.edit(req.params.id, req.body);
+        const result = await inventoryService.editInventoryItem(req.params.id, req.body);
 
         const activity = { panel: 'Edit Inventory', action: req.body.action, manager_id: req.session.user.manager_id };
         const result2 = await activityLogService.add(activity)
@@ -644,7 +660,7 @@ app.get('/supply/add', async (req, res) =>  {
     }
     
     try {
-        const data = await inventoryService.getAll2();
+        const data = await inventoryService.getAllInventoryItem2();
         data.manager_id = req.session.user.manager_id;
         res.render('supply_add', { data: data, currentPage: 'supply' });
     } catch (error) {
@@ -679,6 +695,58 @@ app.post('/supply/add', async (req, res) =>  {
     }
 });
 
+app.get('/supply/edit', async (req, res) =>  {
+    if (!req.session.user) {
+        return res.redirect('/');
+    }
+    
+    res.redirect('/supply');
+});
+
+app.get('/supply/edit/:id', async (req, res) =>  {
+    if (!req.session.user) {
+        return res.redirect('/');
+    }
+    
+    try {
+        const id = req.params.id;
+        const inventory = await inventoryService.getAllInventoryItem2();
+        const supply = (await inventoryService.getSupply(id))[0];
+        const supplyItems = await inventoryService.getSupplyItems3(id);
+        res.render('supply_edit', { id: id, inventory: inventory, supply: supply, supplyItems: supplyItems, currentPage: 'supply' });
+    } catch (error) {
+        console.error('Error getting /supply/edit:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+app.post('/supply/edit/:id', async (req, res) =>  {
+    if (!req.session.user) {
+        return res.redirect('/');
+    }
+    
+    try {
+        const id = req.params.id;
+        console.log('id: '+req.params.id);
+        const data = req.body;
+        console.log(data);
+        const result = await inventoryService.editSupply(id, data.supply);
+
+        data.supplyItems.forEach(async (i) => {
+            console.log('heyyyy '+i);
+            const _ = await inventoryService.editSupplyItem(id, i);
+        });
+
+        const activity = { panel: 'Edit Supply', action: req.body.action, manager_id: req.session.user.manager_id };
+        const result2 = await activityLogService.add(activity);
+
+        res.redirect('/supply');
+    } catch (error) {
+        console.error('Error posting /supply/edit:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
 app.get('/supply/view', async (req, res) => {
     if (!req.session.user) {
         return res.redirect('/');
@@ -696,6 +764,21 @@ app.get('/supply/view/:id', async (req, res) => {
         res.render('supply_view', { data: data, currentPage: 'supply' });
     } catch (error) {
         console.error('Error getting /supply/view:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+app.get('/supply/delete/:id', async (req, res) => {
+    if (!req.session.user) {
+        return res.redirect('/');
+    }
+    try {
+        const result = await inventoryService.deleteSupply(req.params.id);
+        const activity = { panel: 'Delete Supply', action: `Deleted id ${req.params.id}`, manager_id: req.session.user.manager_id };
+        const result2 = await activityLogService.add(activity);
+        res.redirect('/supply');
+    } catch (error) {
+        console.error('Error getting /supply/delete:', error);
         res.status(500).json({ error: 'Internal server error' });
     }
 });

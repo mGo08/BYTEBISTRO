@@ -3,7 +3,7 @@ class InventoryService {
         this.db = db;
     }
 
-    async get(id) {
+    async getInventoryItem(id) {
         return new Promise((resolve, reject) => {
             this.db.query(`
                 SELECT * FROM tbl_inventory_item
@@ -21,7 +21,7 @@ class InventoryService {
         });
     }
 
-    async edit(id, data) {
+    async editInventoryItem(id, data) {
         return new Promise((resolve, reject) => {
             this.db.query(`
                 UPDATE tbl_inventory_item
@@ -44,7 +44,7 @@ class InventoryService {
         });
     }
 
-    async getAll() {
+    async getAllInventoryItem() {
         return new Promise((resolve, reject) => {
             this.db.query(`
                 SELECT
@@ -66,7 +66,7 @@ class InventoryService {
         });
     }
 
-    async getAll2() {
+    async getAllInventoryItem2() {
         return new Promise((resolve, reject) => {
             this.db.query(`
                 SELECT
@@ -86,7 +86,7 @@ class InventoryService {
         });
     }
 
-    async addItem(data) {
+    async addInventoryItem(data) {
         return new Promise((resolve, reject) => {
             this.db.query(`
                 INSERT INTO tbl_inventory_item (name, cost, quantity, unit_id)
@@ -236,6 +236,88 @@ class InventoryService {
         });
     }
 
+    async getSupply(id) {
+        return new Promise((resolve, reject) => {
+            this.db.query(`
+                SELECT * FROM tbl_order_supply
+                WHERE id = ?`,
+                [id],
+                (err, result) => {
+                    if (err) {
+                        console.error('Error getting inventory:', err);
+                        reject(err);
+                    } else {
+                        resolve(result);
+                    }
+                }
+            );
+        });
+    }
+
+    async getSupplyItems3(order_supply_id) {
+        return new Promise((resolve, reject) => {
+            this.db.query(`
+                SELECT
+                    order_supply_id,
+                    inventory_item_id,
+                    quantity,
+                    cost
+                FROM tbl_order_supply_item
+                WHERE order_supply_id = ?`,
+                [order_supply_id],
+                (err, result) => {
+                    if (err) {
+                        console.error('Error getting inventory:', err);
+                        reject(err);
+                    } else {
+                        resolve(result);
+                    }
+                }
+            );
+        });
+    }
+
+    async editSupply(id, data) {
+        return new Promise((resolve, reject) => {
+            this.db.query(`
+                UPDATE tbl_order_supply
+                SET supplier_name = ?
+                WHERE id = ?`,
+                [data.supplier_name, id],
+                (err, result) => {
+                    if (err) {
+                        console.error('Error editing supply:', err);
+                        reject(err);
+                    } else {
+                        resolve(result);
+                    }
+                }
+            );
+        });
+    }
+
+    async editSupplyItem(id, data) {
+        console.log(id+'data--->'+JSON.stringify(data));
+        return new Promise((resolve, reject) => {
+            this.db.query(`
+                UPDATE tbl_order_supply_item
+                SET
+                    quantity = ?,
+                    cost = ?
+                WHERE order_supply_id = ? AND inventory_item_id = ?`,
+                [data.quantity, data.cost, id, data.inventory_item_id],
+                (err, result) => {
+                    if (err) {
+                        console.error('Error editing supply item:', err);
+                        reject(err);
+                    } else {
+                        resolve(result);
+                    }
+                }
+            );
+        });
+    }
+
     async addStockout(id, data) {
         return new Promise((resolve, reject) => {
             this.db.query(`
@@ -270,6 +352,35 @@ class InventoryService {
                 (err, result) => {
                     if (err) {
                         console.error('Error getting stockout:', err);
+                        reject(err);
+                    } else {
+                        resolve(result);
+                    }
+                }
+            );
+        });
+    }
+
+    async deleteSupply(id) {
+        return new Promise((resolve, reject) => {
+            this.db.query(`
+                DELETE FROM tbl_order_supply_item WHERE order_supply_id = ?`,
+                [id],
+                (err, result) => {
+                    if (err) {
+                        console.error('Error deleting supply:', err);
+                        reject(err);
+                    } else {
+                        resolve(result);
+                    }
+                }
+            );
+            this.db.query(`
+                DELETE FROM tbl_order_supply WHERE id = ?`,
+                [id],
+                (err, result) => {
+                    if (err) {
+                        console.error('Error deleting supply:', err);
                         reject(err);
                     } else {
                         resolve(result);

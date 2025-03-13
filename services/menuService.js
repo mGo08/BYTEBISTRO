@@ -232,6 +232,35 @@ class MenuService {
             );
         });
     }
+
+    async deleteMenu(id) {
+        return new Promise((resolve, reject) => {
+            this.db.query(`
+                DELETE FROM tbl_menu_item_ingredients WHERE menu_item_id = ?`,
+                [id],
+                (err, result) => {
+                    if (err) {
+                        console.error('Error deleting menu:', err);
+                        reject(err);
+                    } else {
+                        resolve(result);
+                    }
+                }
+            );
+            this.db.query(`
+                DELETE FROM tbl_menu_item WHERE id = ?`,
+                [id],
+                (err, result) => {
+                    if (err) {
+                        console.error('Error deleting menu:', err);
+                        reject(err);
+                    } else {
+                        resolve(result);
+                    }
+                }
+            );
+        });
+    }
 }
 
 module.exports = MenuService;
