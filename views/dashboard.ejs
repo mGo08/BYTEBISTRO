@@ -12,36 +12,38 @@
         <%- include('_nav') %>
         <main class="content">
             <h1>Dashboard</h1>
-            <p>Welcome to RMS.</p>
+            <p>Welcome to BYTEBISTRO</p>
             <hr class="divider">
 
             <!-- Activity Log Table -->
             <section class="activity-log">
                 <h2>Activity Logs</h2>
-                <table id="logTable">
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Timestamp</th>
-                            <th>Panel</th>
-                            <th>Action</th>
-                            <th>Manager</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <!-- Logs here -->
-                        <% data.forEach(d => { %>
+                <div class="table-container">
+                    <table id="logTable">
+                        <thead>
                             <tr>
-                                <td><%= d.id %></td>
-                                <td><%= d.timestamp %></td>
-                                <td><%= d.panel %></td>
-                                <td><%= d.action %></td>
-                                <td><%= d.manager %></td>
+                                <th>ID</th>
+                                <th>Timestamp</th>
+                                <th>Panel</th>
+                                <th>Action</th>
+                                <th>Manager</th>
                             </tr>
-                        <% }); %>
-                    </tbody>
-                </table>
-            </section>
+                        </thead>
+                        <tbody>
+                            <!-- Logs here -->
+                            <% data.forEach(d => { %>
+                                <tr>
+                                    <td><%= d.id %></td>
+                                    <td><%= d.timestamp %></td>
+                                    <td><%= d.panel %></td>
+                                    <td><%= d.action %></td>
+                                    <td><%= d.manager %></td>
+                                </tr>
+                            <% }); %>
+                        </tbody>
+                    </table>
+                </div>
+            </section>            
         </main>
     </div>
 </body>

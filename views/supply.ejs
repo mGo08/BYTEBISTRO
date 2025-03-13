@@ -34,27 +34,29 @@
                     </a>
                 </div>
             </div>
-
-            <table id="supplyTable">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Date</th>
-                        <th>Supplier Name</th>
-                        <th>Manager</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <% data.forEach(d => { %>
+            
+            <div class="table-container">
+                <table id="supplyTable">
+                    <thead>
                         <tr>
-                            <td><%= d.id %></td>
-                            <td><%= d.date %></td>
-                            <td><%= d.supplier_name %></td>
-                            <td><%= d.manager %></td>
+                            <th>ID</th>
+                            <th>Date</th>
+                            <th>Supplier Name</th>
+                            <th>Manager</th>
                         </tr>
-                    <% }); %>
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        <% data.forEach(d => { %>
+                            <tr>
+                                <td><%= d.id %></td>
+                                <td><%= d.date %></td>
+                                <td><%= d.supplier_name %></td>
+                                <td><%= d.manager %></td>
+                            </tr>
+                        <% }); %>
+                    </tbody>
+                </table>
+            </div>
         </main>
     </div>
 

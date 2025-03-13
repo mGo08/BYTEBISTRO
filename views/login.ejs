@@ -9,14 +9,21 @@
 <body>
     <div class="login-container">
         <div class="login-box">
-            <img src="../assets/rmsLogo.png" alt="RMS Logo" class="logo">
-            <h2>Restaurant Management System</h2>
+            <img src="../assets/whitebyte.png" alt="RMS Logo" class="logo">
+            <h2>BYTEBISTRO</h2>
 
             <form id="loginForm">
             <!-- <form id="loginForm" method="post" action="/login"> -->
-                <input type="text" id="username" name="username" placeholder="Username" required>
-                <input type="password" id="password" name="password" placeholder="Password" required>
+                <div class="input-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" name="username" placeholder="Username" required>
+                </div>
+                <div class="input-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" placeholder="Password" required>
+                </div>
                 <button type="submit">Login</button>
+                <p class="error-message" id="errorMessage">Invalid username or password</p>
             </form>
 
         </div>
@@ -30,6 +37,7 @@
     
             const username = document.getElementById('username').value;
             const password = document.getElementById('password').value;
+            const errorMessage = document.getElementById('errorMessage');
     
             const response = await fetch('/login', {
                 method: 'POST',
@@ -42,6 +50,8 @@
     
             if (data.success) {
                 window.location.href = '/dashboard';
+            } else {
+                errorMessage.style.display = 'block';
             }
         });
     </script>
