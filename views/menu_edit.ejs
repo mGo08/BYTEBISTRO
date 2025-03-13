@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu</title>
+    <link rel="stylesheet" href="/css/action.css">
+</head>
+<body>
+    <div class="container">
+        <%- include('_nav') %>
+        <main class="content">
+            <h1>Edit Menu Item</h1>
+            <hr class="divider">
+
+            <form id="editMenuForm"> 
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="name">Name:</label>
+                        <input type="text" id="name" name="name" value="<%= data.menu.name %>" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="category_id">Category:</label>
+                        <select id="category_id" name="category_id" required>
+                            <option value="">Select Category</option>
+                            <% categories.forEach(d => { %>
+                                <option value="<%= d.id %>" <%= d.id === data.menu.category_id ? 'selected' : '' %>><%= d.name %></option>
+                            <% }); %>
+                        </select>
+                        <a href="/menu/add/category">New Category</a>
+                    </div>
+                </div>
+            
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="price">Price:</label>
+                        <input type="number" id="price" name="price" value="<%= data.menu.price %>" required>
+                    </div>
+                </div>
+
+                <hr class="divider">
+
+                <div class="item-group">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="inventory_item_id">Ingredient:</label>
+                            <select id="inventory_item_id" name="inventory_item_id" required>
+                                <option value="">Select Item</option>
+                                <% ingredients.forEach(d => { %>
+                                    <option value="<%= d.id %>" <%= d.id === data.items[0].inventory_item_id ? 'selected' : '' %>><%= d.name %> (<%= d.cost %>)</option>
+                                <% }); %>
+                            </select>
+                        </div>
+                    </div>
+                
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="quantity">Quantity:</label>
+                            <input type="number" id="quantity" name="quantity" value="<%= data.items[0].quantity %>" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="unit">Unit:</label>
+                            <select id="unit_id" name="unit_id" required>
+                                <option value="">Select Unit</option>
+                                <% units.forEach(d => { %>
+                                    <option value="<%= d.id %>" <%= d.id === data.items[0].unit_id ? 'selected' : '' %>><%= d.name %></option>
+                                <% }); %>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="cost">Cost:</label>
+                            <input type="number" id="cost" name="cost" value="<%= data.items[0].cost %>" required>
+                        </div>
+                    </div>
+
+                    <hr class="divider">
+                </div>
+
+                <% for (let i=0; i<data.items.length-1; i++) { %>
+                <div class="item-group">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="inventory_item_id<%=i%>">Ingredient:</label>
+                            <select id="inventory_item_id<%=i%>" name="inventory_item_id<%=i%>" required>
+                                <option value="">Select Item</option>
+                                <% ingredients.forEach(d => { %>
+                                    <option value="<%= d.id %>" <%= d.id === data.items[i].inventory_item_id ? 'selected' : '' %>><%= d.name %> (<%= d.cost %>)</option>
+                                <% }); %>
+                            </select>
+                        </div>
+                    </div>
+                
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="quantity<%=i%>">Quantity:</label>
+                            <input type="number" id="quantity<%=i%>" name="quantity<%=i%>" value="<%= data.items[i].quantity %>" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="unit_id<%=i%>">Unit:</label>
+                            <select id="unit_id<%=i%>" name="unit_id<%=i%>" required>
+                                <option value="">Select Unit</option>
+                                <% units.forEach(d => { %>
+                                    <option value="<%= d.id %>" <%= d.id === data.items[i].unit_id ? 'selected' : '' %>><%= d.name %></option>
+                                <% }); %>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="cost<%=i%>">Cost:</label>
+                            <input type="number" id="cost<%=i%>" name="cost<%=i%>" value="<%= data.items[i].cost %>" required>
+                        </div>
+                    </div>
+
+                    <hr class="divider">
+                </div>
+                <% } %>
+
+                <div id="itemGroupsContainer"></div>
+                <button id="addItemBtn" type="button">Add Ingredient</button>
+            
+                <hr class="divider">
+            
+                <div class="form-group">
+                    <label for="action">Action:</label>
+                    <textarea id="action" name="action" rows="4" cols="50" placeholder="Description..." required></textarea>
+                </div>
+                
+                <button id="addbtn" type="submit">Edit Menu Item</button>
+            </form>
+        </main>
+    </div>
+
+    <div hidden id="menu_item_id"><%= id %></div>
+
+    <script src="/js/cloneitemgroup.js"></script>
+    <script src="/js/menu_edit.js"></script>
+</body>
+</html>

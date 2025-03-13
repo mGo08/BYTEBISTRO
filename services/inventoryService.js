@@ -89,9 +89,9 @@ class InventoryService {
     async addItem(data) {
         return new Promise((resolve, reject) => {
             this.db.query(`
-                INSERT INTO tbl_inventory_item (name, cost, unit_id)
-                VALUES (?, ?, ?)`,
-                [data.name, data.cost, data.unit_id],
+                INSERT INTO tbl_inventory_item (name, cost, quantity, unit_id)
+                VALUES (?, ?, ?, ?)`,
+                [data.name, data.cost, data.quantity, data.unit_id],
                 (err, result) => {
                     if (err) {
                         console.error('Error adding inventory:', err);

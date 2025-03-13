@@ -38,13 +38,15 @@ const ActivityLogService = require('./services/activityLogService');
 const EmployeeService = require('./services/employeeService');
 const SalesService = require('./services/salesService');
 const InventoryService = require('./services/inventoryService');
-const UnitService = require('./services/unitService')
+const UnitService = require('./services/unitService');
+const MenuService = require('./services/menuService');
 const loginService = new LoginService(db);
 const activityLogService = new ActivityLogService(db);
 const employeeService = new EmployeeService(db);
 const salesService = new SalesService(db);
 const inventoryService = new InventoryService(db);
 const unitService = new UnitService(db);
+const menuService = new MenuService(db);
 
 app.get('/', (req, res) => {
     if (req.session.user) {
@@ -274,10 +276,165 @@ app.get('/menu', async (req, res) =>  {
     }
     
     try {
-        const data = null; //await orderService.getAll();
+        const data = await menuService.getAll();
         res.render('menu', { data: data, currentPage: 'menu' });
     } catch (error) {
         console.error('Error getting menu:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+app.get('/menu/add', async (req, res) =>  {
+    if (!req.session.user) {
+        return res.redirect('/');
+    }
+    
+    try {
+        const categories = await menuService.getCategories();
+        const ingredients = await inventoryService.getAll();
+        const units = await unitService.getAll();
+        res.render('menu_add', { categories: categories, units: units, ingredients: ingredients, currentPage: 'menu' });
+    } catch (error) {
+        console.error('Error getting menu/add:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+app.post('/menu/add', async (req, res) =>  {
+    if (!req.session.user) {
+        return res.redirect('/');
+    }
+
+    try {
+        const data = req.body;
+        console.log(data);
+        const result = await menuService.addMenu(data.menu);
+
+        const menu_item_id = (await menuService.getLatestMenu())[0].id;
+        data.items.forEach(async (i) => {
+            i.menu_item_id = menu_item_id;
+            const _ = await menuService.addMenuItem(i);
+        });
+
+        const activity = { panel: 'Add Menu Item', action: req.body.action, manager_id: req.session.user.manager_id };
+        const result2 = await activityLogService.add(activity);
+
+        res.redirect('/menu');
+    } catch (error) {
+        console.error('Error posting menu/add:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+app.get('/menu/edit', async (req, res) =>  {
+    if (!req.session.user) {
+        return res.redirect('/');
+    }
+    
+    res.redirect('/menu');
+});
+
+app.get('/menu/edit/:id', async (req, res) =>  {
+    if (!req.session.user) {
+        return res.redirect('/');
+    }
+    
+    try {
+        const categories = await menuService.getCategories();
+        const ingredients = await inventoryService.getAll();
+        const units = await unitService.getAll()
+        const menu = (await menuService.get(req.params.id))[0];
+        const items = await menuService.get2(req.params.id);
+        res.render('menu_edit', {
+            id: req.params.id,
+            categories: categories,
+            ingredients: ingredients,
+            units: units,
+            data: { menu: menu, items: items },
+            currentPage: 'menu'
+        });
+    } catch (error) {
+        console.error('Error getting menu/edit:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+app.post('/menu/edit/:id', async (req, res) =>  {
+    if (!req.session.user) {
+        return res.redirect('/');
+    }
+    
+    try {
+        const data = req.body;
+        // console.log(data.menu);
+        const result = await menuService.editMenuItem(req.params.id, data.menu);
+
+        data.items.forEach(async (i) => {
+            console.log(i);
+            const _ = await menuService.editMenuItemIngredients(req.params.id, i);
+        });
+
+        const activity = { panel: 'Edit Menu Item', action: req.body.action, manager_id: req.session.user.manager_id };
+        const result2 = await activityLogService.add(activity);
+
+        res.redirect('/menu');
+    } catch (error) {
+        console.error('Error posting menu/edit:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+
+app.get('/menu/view', async (req, res) =>  {
+    if (!req.session.user) {
+        return res.redirect('/');
+    }
+    
+    res.redirect('/menu');
+});
+
+app.get('/menu/view/:id', async (req, res) =>  {
+    if (!req.session.user) {
+        return res.redirect('/');
+    }
+    
+    try {
+        const data = await menuService.getIngredients(req.params.id);
+        res.render('menu_view', { data: data, currentPage: 'menu' });
+    } catch (error) {
+        console.error('Error getting menu/add:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+app.get('/menu/add/category', async (req, res) =>  {
+    if (!req.session.user) {
+        return res.redirect('/');
+    }
+    
+    try {
+        const categories = await menuService.getCategories();
+        res.render('menu_add_category', { categories: categories, currentPage: 'menu' });
+    } catch (error) {
+        console.error('Error getting menu:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+app.post('/menu/add/category', async (req, res) =>  {
+    if (!req.session.user) {
+        return res.redirect('/');
+    }
+    
+    try {
+        const result = await menuService.addCategory(req.body.name);
+
+        const activity = { panel: 'Add Category', action: req.body.action, manager_id: req.session.user.manager_id };
+        const result2 = await activityLogService.add(activity);
+
+        res.redirect('/menu');
+    } catch (error) {
+        console.error('Error posting menu/add/category:', error);
         res.status(500).json({ error: 'Internal server error' });
     }
 });

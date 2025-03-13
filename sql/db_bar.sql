@@ -92,8 +92,7 @@ create table tbl_menu_item (
 	name varchar(100) not null,
 	price decimal(10,2) not null,
 	category_id int not null,
-		foreign key (category_id) references tbl_menu_item_category (id),
-	is_available bool not null
+		foreign key (category_id) references tbl_menu_item_category (id)
 );
 
 create table tbl_inventory_item (
