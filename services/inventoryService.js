@@ -300,12 +300,9 @@ class InventoryService {
         console.log(id+'data--->'+JSON.stringify(data));
         return new Promise((resolve, reject) => {
             this.db.query(`
-                UPDATE tbl_order_supply_item
-                SET
-                    quantity = ?,
-                    cost = ?
-                WHERE order_supply_id = ? AND inventory_item_id = ?`,
-                [data.quantity, data.cost, id, data.inventory_item_id],
+                DELETE FROM tbl_order_supply_item
+                WHERE order_supply_id = ?`,
+                [id],
                 (err, result) => {
                     if (err) {
                         console.error('Error editing supply item:', err);
@@ -315,6 +312,23 @@ class InventoryService {
                     }
                 }
             );
+            data.forEach(e => {
+                this.db.query(`
+                    INSERT INTO tbl_order_supply_item
+                    (order_supply_id, inventory_item_id, quantity, cost)
+                    VALUES
+                    (?, ?, ?, ?)`,
+                    [id, e.inventory_item_id, e.quantity, e.cost],
+                    (err, result) => {
+                        if (err) {
+                            console.error('Error editing supply item:', err);
+                            reject(err);
+                        } else {
+                            resolve(result);
+                        }
+                    }
+                );
+            });
         });
     }
 

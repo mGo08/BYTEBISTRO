@@ -369,10 +369,11 @@ app.post('/menu/edit/:id', async (req, res) =>  {
         console.log(data);
         const result = await menuService.editMenuItem(req.params.id, data.menu);
 
-        data.items.forEach(async (i) => {
-            // console.log(i);
-            const _ = await menuService.editMenuItemIngredients(req.params.id, i);
-        });
+        // data.items.forEach(async (i) => {
+        //     // console.log(i);
+        //     const _ = await menuService.editMenuItemIngredients(req.params.id, i);
+        // });
+        const _ = await menuService.editMenuItemIngredients(req.params.id, data.items);
 
         const activity = { panel: 'Edit Menu Item', action: req.body.action, manager_id: req.session.user.manager_id };
         const result2 = await activityLogService.add(activity);
@@ -727,15 +728,13 @@ app.post('/supply/edit/:id', async (req, res) =>  {
     
     try {
         const id = req.params.id;
-        console.log('id: '+req.params.id);
         const data = req.body;
-        console.log(data);
         const result = await inventoryService.editSupply(id, data.supply);
 
-        data.supplyItems.forEach(async (i) => {
-            console.log('heyyyy '+i);
-            const _ = await inventoryService.editSupplyItem(id, i);
-        });
+        // data.supplyItems.forEach(async (i) => {
+        //     const _ = await inventoryService.editSupplyItem(id, i);
+        // });
+        const _ = await inventoryService.editSupplyItem(id, data.supplyItems);
 
         const activity = { panel: 'Edit Supply', action: req.body.action, manager_id: req.session.user.manager_id };
         const result2 = await activityLogService.add(activity);

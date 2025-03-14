@@ -27,10 +27,10 @@
                     <div class="form-row">
                         <div class="form-group">
                             <label for="inventory_item_id">Item:</label>
-                            <select id="inventory_item_id" name="inventory_item_id" required disabled>
+                            <select id="inventory_item_id" name="inventory_item_id" required>
                                 <option value="">Select Item</option>
                                 <% inventory.forEach(d => { %>
-                                    <option value="<%= d.id %>" <%= d.id === supplyItems[0].inventory_item_id ? 'selected' : '' %>><%= d.name %></option>
+                                    <option value="<%= d.id %>" <%= supplyItems[0] && d.id === supplyItems[0].inventory_item_id ? 'selected' : '' %>><%= d.name %></option>
                                 <% }); %>
                             </select>
                         </div>
@@ -39,11 +39,11 @@
                     <div class="form-row">
                         <div class="form-group">
                             <label for="quantity">Quantity:</label>
-                            <input type="number" id="quantity" name="quantity" value="<%= supplyItems[0].quantity %>" required>
+                            <input type="number" id="quantity" name="quantity" value="<%= supplyItems[0] ? supplyItems[0].quantity : '' %>" required>
                         </div>
                         <div class="form-group">
                             <label for="cost">Cost:</label>
-                            <input type="number" id="cost" name="cost" value="<%= supplyItems[0].cost %>" required>
+                            <input type="number" id="cost" name="cost" value="<%= supplyItems[0] ? supplyItems[0].cost : '' %>" required>
                         </div>
                     </div>
 
@@ -56,7 +56,7 @@
                             <div class="form-row">
                                 <div class="form-group">
                                     <label for="inventory_item_id<%=i%>">Item:</label>
-                                    <select id="inventory_item_id<%=i%>" name="inventory_item_id<%=i%>" required disabled>
+                                    <select id="inventory_item_id<%=i%>" name="inventory_item_id<%=i%>" required>
                                         <option value="">Select Item</option>
                                         <% inventory.forEach(d => { %>
                                             <option value="<%= d.id %>" <%= d.id === supplyItems[i+1].inventory_item_id ? 'selected' : '' %>><%= d.name %></option>
@@ -80,9 +80,9 @@
                         </div>
                         <% } %>
                 </div>
-                <!-- <button id="addItemBtn" type="button">Add Supply Item</button>
+                <button id="addItemBtn" type="button">Add Supply Item</button>
 
-                <hr class="divider"> -->
+                <hr class="divider">
             
                 <div class="form-group">
                     <label for="action">Action:</label>
@@ -96,7 +96,7 @@
 
     <div id="order_supply_id" hidden><%= id %></div>
 
-    <!-- <script src="/js/cloneitemgroup.js"></script> -->
+    <script src="/js/cloneitemgroup.js"></script>
     <script src="/js/supply_edit.js"></script>
 </body>
 </html>

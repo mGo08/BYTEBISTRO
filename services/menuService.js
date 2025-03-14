@@ -66,23 +66,35 @@ class MenuService {
     async editMenuItemIngredients(menu_item_id, data) {
         return new Promise((resolve, reject) => {
             this.db.query(`
-                UPDATE tbl_menu_item_ingredients
-                SET
-                    quantity = ?,
-                    cost = ?,
-                    unit_id = ?
-                WHERE
-                    menu_item_id = ? AND inventory_item_id = ?`,
-                [data.quantity, data.cost, data.unit_id, menu_item_id, data.inventory_item_id],
+                DELETE FROM tbl_menu_item_ingredients
+                WHERE menu_item_id = ?`,
+                [menu_item_id],
                 (err, result) => {
                     if (err) {
-                        console.error('Error getting menu item ingredients:', err);
+                        console.error('Error editing menu item ingredients:', err);
                         reject(err);
                     } else {
                         resolve(result);
                     }
                 }
             );
+            data.forEach(e => {
+                this.db.query(`
+                    INSERT INTO tbl_menu_item_ingredients
+                    (menu_item_id, inventory_item_id, quantity, unit_id, cost)
+                    VALUES
+                    (?, ?, ?, ?, ?)`,
+                    [menu_item_id, e.inventory_item_id, e.quantity, e.unit_id, e.cost],
+                    (err, result) => {
+                        if (err) {
+                            console.error('Error editing menu item ingredients:', err);
+                            reject(err);
+                        } else {
+                            resolve(result);
+                        }
+                    }
+                );
+            });
         });
     }
 
@@ -94,20 +106,13 @@ class MenuService {
                     m.name AS name,
                     c.name AS category,
                     m.price,
-                    SUM(ii.cost * mii.quantity) AS cost
+                    SUM(mii.cost * mii.quantity) AS cost
                 FROM
                     tbl_menu_item m
                 JOIN
                     tbl_menu_item_category c ON m.category_id = c.id
-                JOIN
-                    tbl_menu_item_ingredients mii ON m.id = mii.menu_item_id
-                JOIN
-                    tbl_inventory_item ii ON mii.inventory_item_id = ii.id
-                GROUP BY
-                    m.id,
-                    m.name,
-                    c.name,
-                    m.price;`,
+                LEFT JOIN
+                    tbl_menu_item_ingredients mii ON m.id = mii.menu_item_id`,
                 (err, result) => {
                     if (err) {
                         console.error('Error getting menu:', err);
