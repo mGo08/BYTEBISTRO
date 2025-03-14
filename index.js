@@ -75,6 +75,18 @@ app.post('/login', async (req, res) => {
     }
 });
 
+app.get('/logout', (req, res) => {
+    req.session.destroy((err) => {
+        if (err) {
+            console.error('Error destroying session:', err);
+            return res.status(500).json({ error: 'Internal server error' });
+        }
+        // res.json({ success: true, message: 'Logout successful' }); // Send a JSON response
+        // Or, if you want to redirect:
+        res.redirect('/'); // Redirect to the login page
+    });
+});
+
 app.get('/nav', async(req, res) => {
     res.render('nav');
 });
