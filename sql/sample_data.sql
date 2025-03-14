@@ -9,7 +9,9 @@ INSERT INTO tbl_employee_role (name) VALUES
 ('Owner'),
 ('Manager'),
 ('Chef'),
-('Waiter');
+('Waiter'),
+('Cashier'),
+('Other');
 
 -- tbl_employee data
 INSERT INTO tbl_employee (first_name, last_name, salary, email, username, password, role_id, schedule_id) VALUES
