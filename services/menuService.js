@@ -103,16 +103,14 @@ class MenuService {
             this.db.query(`
                 SELECT
                     m.id,
-                    m.name AS name,
+                    m.name,
                     c.name AS category,
                     m.price,
                     SUM(mii.cost * mii.quantity) AS cost
-                FROM
-                    tbl_menu_item m
-                JOIN
-                    tbl_menu_item_category c ON m.category_id = c.id
-                LEFT JOIN
-                    tbl_menu_item_ingredients mii ON m.id = mii.menu_item_id`,
+                FROM tbl_menu_item m
+                JOIN tbl_menu_item_category c ON m.category_id = c.id
+                LEFT JOIN tbl_menu_item_ingredients mii ON m.id = mii.menu_item_id
+                GROUP BY m.id;`,
                 (err, result) => {
                     if (err) {
                         console.error('Error getting menu:', err);
